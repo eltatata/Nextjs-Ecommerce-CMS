@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useOrigin } from "@/hooks/use-origin";
 
 import { useParams, useRouter } from "next/navigation";
 
@@ -17,7 +16,6 @@ import { Trash } from "lucide-react";
 import Heading from "@/components/ui/heading";
 import ImageUpload from "@/components/ui/images-upload";
 import AlertModal from "@/components/modals/alert-modal";
-import ApiAlert from "@/components/ui/api-alert";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -47,7 +45,6 @@ type BillboardFormValues = z.infer<typeof formSchema>;
 export default function BillboardForm({ initialData }: BillboardFormProps) {
   const router = useRouter();
   const params = useParams();
-  const origin = useOrigin();
 
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -76,6 +73,7 @@ export default function BillboardForm({ initialData }: BillboardFormProps) {
         await axios.post(`/api/${params.storeId}/billboards`, values);
       }
 
+      router.push(`/${params.storeId}/billboards`)
       router.refresh();
       toast.success(toastMesage);
     } catch (error: any) {
@@ -89,8 +87,8 @@ export default function BillboardForm({ initialData }: BillboardFormProps) {
     try {
       setLoading(true);
       await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`);
+      router.push(`/${params.storeId}/billboards`);
       router.refresh();
-      router.push('/');
       toast.success('Billboard deleted.');
     } catch (error: any) {
       toast.error('Make sure you removed all categories using this billboard first.');
@@ -167,11 +165,11 @@ export default function BillboardForm({ initialData }: BillboardFormProps) {
           </Button>
         </form>
       </Form>
-      <Separator />
-      <ApiAlert
-        title="NEXT_PUBLIC_API_URL"
-        description={`${origin}/api/${params.storeId}`}
-        variant="public"
+      <AlertModal
+        isOpen={open}
+        loading={loading}
+        onClose={() => setOpen(false)}
+        onConfirm={onDelete}
       />
     </>
   )

@@ -5,7 +5,7 @@ import { auth } from '@clerk/nextjs';
 
 import prismadb from '@/lib/prismadb';
 
-export async function GET({ params }: { params: { storeId: string } }) {
+export async function GET(req: NextRequest, { params }: { params: { storeId: string } }) {
   try {
     const storeId = params.storeId
     if (!storeId) return new NextResponse("Store id is required", { status: 400 });
@@ -18,7 +18,7 @@ export async function GET({ params }: { params: { storeId: string } }) {
 
     return NextResponse.json(billboards);
   } catch (error) {
-    console.log('[BILLBOARDS_POST]', error);
+    console.log('[BILLBOARDS_GET]', error);
     return new NextResponse("Internal error", { status: 500 });
   }
 };
