@@ -36,7 +36,7 @@ export default function CellAction({ data }: CellActionProps) {
 
   const onCopy = (id: string) => {
     navigator.clipboard.writeText(id);
-    toast.success("API Route copied to the clipboard.");
+    toast.success("Billboard id copied to the clipboard.");
   }
 
   const onDelete = async () => {
