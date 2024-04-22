@@ -17,11 +17,11 @@ export interface Product {
   price: string
   isFeatured: boolean
   size: Size
-  color: string
-  images: Images[]
+  color: Color
+  images: Image[]
 }
 
-export interface Images {
+export interface Image {
   id: string
   url: string
 }
