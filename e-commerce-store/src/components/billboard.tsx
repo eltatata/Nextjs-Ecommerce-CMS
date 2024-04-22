@@ -1,5 +1,3 @@
-import Image from "next/image";
-
 import { Billboard as BillboardType } from "@/types";
 
 interface BillboardProps {

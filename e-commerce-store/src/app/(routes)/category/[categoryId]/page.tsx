@@ -9,6 +9,7 @@ import Billboard from "@/components/billboard";
 import ProductCard from "@/components/ui/product-card";
 
 import Filter from "./components/filter";
+import MobileFilters from "./components/mobile-filters";
 
 interface CategoryPageProps {
   params: {
@@ -39,7 +40,7 @@ export default async function CategoryPage({ params, searchParams }: CategoryPag
         <Billboard data={category.billboard} />
         <div className="px-4 sm:px-5 lg:px-8 pb-24">
           <div className="lg:grid lg:grid-cols-5 lg:gap-x-8">
-            {/* <MobileFilters sizes={sizes} colors={colors} /> */} 
+            <MobileFilters sizes={sizes} colors={colors} /> 
             <div className="hidden lg:block">
               <Filter valueKey="sizeId" name="Sizes" data={sizes} />
               <Filter valueKey="colorId" name="Color" data={colors} />
